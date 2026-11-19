@@ -1,79 +1,18 @@
-# Svelte library
+# horta-app — Horta da Terra field app (SvelteKit, offline-first, PT-BR)
 
-Everything you need to build a Svelte library, powered by [`sv`](https://npmjs.com/package/sv).
-
-Read more about creating a library [in the docs](https://svelte.dev/docs/kit/packaging).
-
-## Creating a project
-
-If you're seeing this, you've probably already done this step. Congrats!
+Converted from the `sv create` *library* template to an app: `adapter-static` (SPA, `index.html` fallback), `ssr = false`,
+`src/service-worker/index.ts` precaches the whole app so it opens with no connection. No new runtime dependencies.
 
 ```sh
-# create a new project in the current directory
-npx sv create
-
-# create a new project in my-app
-npx sv create my-app
-```
-
-To recreate this project with the same configuration:
-
-```sh
-# recreate this project
-npx sv@1.3.0 create --template library --types ts --install npm horta-app
-```
-
-## Adding features
-
-Add features to your project with `sv add`:
-
-```sh
-npx sv add
-```
-
-For example, to add Tailwind CSS:
-
-```sh
-npx sv add tailwindcss
-```
-
-## Developing
-
-Once you've created a project and installed dependencies with `npm install` (or `pnpm install` or `yarn`), start a development server:
-
-```sh
+npm install      # package.json changed; package-lock.json will be regenerated (use install, not ci, the first time)
 npm run dev
-
-# or start the server and open the app in a new browser tab
-npm run dev -- --open
+npm run build && npm run preview
 ```
 
-Everything inside `src/lib` is part of your library, everything inside `src/routes` can be used as a showcase or preview app.
+Routes: `/` home · `/plantas` · `/plantas/[id]` · `/planejar` · `/registrar` · `/sincronizar` · `/painel` · `/explorar`.
+Data: `src/lib/data/seed.json` is **generated** by `Backend/build_seed.py` — don't edit by hand.
+Local storage: IndexedDB (`src/lib/db.ts`), same fields as `Backend/schema.sql`. `/api/sync` doesn't exist yet (the Sync button
+fails gracefully; JSON export works).
 
-## Building
-
-To build your library:
-
-```sh
-npm pack
-```
-
-To create a production version of your showcase app:
-
-```sh
-npm run build
-```
-
-You can preview the production build with `npm run preview`.
-
-> To deploy your app, you may need to install an [adapter](https://svelte.dev/docs/kit/adapters) for your target environment.
-
-## Publishing
-
-Go into the `package.json` and give your package the desired name through the `"name"` option. Also consider adding a `"license"` field and point it to a `LICENSE` file which you can create from a template (one popular option is the [MIT license](https://opensource.org/license/mit/)).
-
-To publish your library to [npm](https://www.npmjs.com):
-
-```sh
-npm publish
-```
+> Status: written without the ability to run `npm install`/`vite build` — **not yet compiled**. Expect to fix small
+> type/Svelte warnings on first run (`npm run check`). Behaviour of the rule engine (`src/lib/plan.ts`) was tested against the seed.

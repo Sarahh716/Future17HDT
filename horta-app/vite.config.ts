@@ -1,4 +1,4 @@
-import adapter from '@sveltejs/adapter-auto';
+import adapter from '@sveltejs/adapter-static';
 import { sveltekit } from '@sveltejs/kit/vite';
 import { defineConfig } from 'vite';
 
@@ -10,11 +10,10 @@ export default defineConfig({
 				runes: ({ filename }) =>
 					filename.split(/[/\\]/).includes('node_modules') ? undefined : true
 			},
-
-			// adapter-auto only supports some environments, see https://svelte.dev/docs/kit/adapter-auto for a list.
-			// If your environment is not supported, or you settled on a specific environment, switch out the adapter.
-			// See https://svelte.dev/docs/kit/adapters for more information about adapters.
-			adapter: adapter()
+			// Offline-first SPA: one static bundle + index.html fallback, cached by src/service-worker.ts.
+			adapter: adapter({ fallback: 'index.html' }),
+			// SvelteKit 3 removed the built-in $lib alias; restore it so imports like '$lib/state.svelte' work.
+			alias: { $lib: 'src/lib' }
 		})
 	]
 });
