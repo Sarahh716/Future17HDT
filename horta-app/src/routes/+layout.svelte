@@ -5,8 +5,8 @@
 	import { app, init } from '$lib/state.svelte';
 	import { i18n, initLang, setLang, t } from '$lib/i18n.svelte';
 	let { children } = $props();
-	const TABS: [string, string, string][] = [['/', '🏠', 'nav.home'], ['/plantas', '🌳', 'nav.plants'], ['/planejar', '🗺️', 'nav.plan'], ['/registrar', '📝', 'nav.log'], ['/painel', '📊', 'nav.panel']];
-	const TITLES: Record<string, string> = { '/': 'title.app', '/plantas': 'nav.plants', '/planejar': 'nav.plan', '/registrar': 'nav.log', '/sincronizar': 'title.sync', '/painel': 'nav.panel', '/explorar': 'title.explore' };
+	const TABS: [string, string, string][] = [['/', '🏠', 'nav.home'], ['/plantas', '🌳', 'nav.plants'], ['/planejar', '🗺️', 'nav.plan'], ['/registrar', '📝', 'nav.log'], ['/painel', '📊', 'nav.panel'], ['/guild', '🌱', 'nav.guild']];
+	const TITLES: Record<string, string> = { '/': 'title.app', '/plantas': 'nav.plants', '/planejar': 'nav.plan', '/registrar': 'nav.log', '/sincronizar': 'title.sync', '/painel': 'nav.panel', '/explorar': 'title.explore',  '/guild': 'nav.guild'};
 	const path = $derived(page.url.pathname.replace(/\/$/, '') || '/');
 	const title = $derived(t(TITLES[path] ?? (path.startsWith('/plantas/') ? 'title.plant' : 'title.app')));
 	const active = (p: string) => (p === '/' ? path === '/' || path === '/sincronizar' : path.startsWith(p));

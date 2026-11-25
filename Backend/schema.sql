@@ -20,7 +20,7 @@ CREATE TABLE source (
 );
 
 CREATE TABLE layer (                          -- agroforestry strata
-  id        TEXT PRIMARY KEY,                -- ground | lower_mid | mid | canopy
+  id        TEXT PRIMARY KEY,                -- ground | lower_mid | mid | canopy | emergent
   name_pt   TEXT NOT NULL,
   name_en   TEXT NOT NULL,
   sort      INTEGER NOT NULL
@@ -31,10 +31,22 @@ CREATE TABLE species (
   common_name_pt        TEXT NOT NULL,
   scientific_name       TEXT,
   layer_id              TEXT REFERENCES layer(id),
+  succession_stage      TEXT,                -- Placenta (0-2 yr) | Secondary (2-15 yr) | Climax (15+ yr)
   plant_group           TEXT,                -- leafy | tuber | fruit | tree | green_manure ...
   role_in_system        TEXT,                -- food | PANC | nitrogen_fixer | shade | timber ...
   is_panc               INTEGER DEFAULT 0,
   grown_by_hdt          INTEGER DEFAULT 0,   -- company-reported
+  ecocrop_id            INTEGER,
+  shade_tolerance       TEXT,
+  drainage_requirement  TEXT,
+  opt_temp_min          REAL,
+  opt_temp_max          REAL,
+  abs_temp_min          REAL,
+  abs_temp_max          REAL,
+  opt_rain_min          REAL,
+  opt_rain_max          REAL,
+  abs_rain_min          REAL,
+  abs_rain_max          REAL,
   light_pt              TEXT,
   light_en              TEXT,
   soil_pt               TEXT,
@@ -45,6 +57,8 @@ CREATE TABLE species (
   shade_max_pct         INTEGER,
   soil_ph_min           REAL,
   soil_ph_max           REAL,
+  abs_ph_min            REAL,
+  abs_ph_max            REAL,
   first_harvest_days    INTEGER,
   harvest_notes_pt      TEXT,
   harvest_notes_en      TEXT,
@@ -54,6 +68,7 @@ CREATE TABLE species (
   layout_notes          TEXT,
   evidence_status       TEXT NOT NULL DEFAULT 'data_gap',
   source_id             TEXT REFERENCES source(id),
+  source_url            TEXT,
   raw_source_row        TEXT,                -- original (English) spreadsheet text, kept verbatim
   notes                 TEXT,                -- Portuguese (UI language)
   notes_en              TEXT,
