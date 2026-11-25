@@ -17,7 +17,7 @@ type V = string | ((...a: any[]) => string);
 const D: Record<string, [V, V]> = {
 	back: ['Voltar', 'Back'],
 	'net.on': ['📶 online', '📶 online'], 'net.off': ['📴 offline', '📴 offline'],
-	'nav.home': ['Início', 'Home'], 'nav.plants': ['Plantas', 'Plants'], 'nav.plan': ['Planejar', 'Plan'], 'nav.log': ['Registrar', 'Record'], 'nav.panel': ['Painel', 'Dashboard'],
+	'nav.home': ['Início', 'Home'], 'nav.plants': ['Plantas', 'Plants'], 'nav.plan': ['Planejar', 'Plan'], 'nav.log': ['Registrar', 'Record'], 'nav.panel': ['Painel', 'Dashboard'], 'nav.guild': ['Guilda', 'Guild'],
 	'title.app': ['Horta da Terra', 'Horta da Terra'], 'title.sync': ['Sincronizar', 'Sync'], 'title.explore': ['Explorar espécies', 'Explore species'], 'title.plant': ['Planta', 'Plant'],
 	'role.farmer': ['Agricultor', 'Farmer'], 'role.technician': ['Técnico', 'Technician'], 'role.manager': ['Gestão', 'Manager'], 'role.educator': ['Escola', 'School'],
 	'home.species': [(n: number) => `${n} espécies`, (n: number) => `${n} species`],
